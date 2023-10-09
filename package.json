@@ -1,0 +1,32 @@
+{
+  "name": "open-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -F prefer-storage dev",
+    "build": "pnpm -F prefer-storage build"
+  },
+  "private": true,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^39.1.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.0.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-serve": "^2.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "prefer-storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "dist/index.esm.js",
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c --watch --development",
+    "build": "rimraf dist types && rollup -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "workspace:*",
+    "rimraf": "workspace:*",
+    "rollup-plugin-commonjs": "workspace:*",
+    "rollup-plugin-delete": "workspace:*",
+    "rollup-plugin-livereload": "workspace:*",
+    "rollup-plugin-node-resolve": "workspace:*",
+    "rollup-plugin-serve": "workspace:*",
+    "rollup-plugin-typescript2": "workspace:*",
+    "typescript": "workspace:*"
+  }
+}
