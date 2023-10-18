@@ -26,7 +26,7 @@ if (isDevelopment) {
 export default {
   input,
   output: [{
-    file: 'dist/bundle.js',
+    file: 'dist/index.js',
     format: 'umd',
     name: 'PreStorage'
   }, {
@@ -45,8 +45,7 @@ export default {
     resolve(),
     commonjs(),
     typescript({
-      tsconfig: './tsconfig.json',
-      useTsconfigDeclarationDir: true
+      tsconfig: './tsconfig.json'
     })
   ]
 }

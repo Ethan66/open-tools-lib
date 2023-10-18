@@ -1,7 +1,10 @@
 {
     "extends": "../../tsconfig.json",
+    "exclude": ["./test/"],
     "include": ["./src/**/*", "**/*"],
     "compilerOptions": {
+        "declarationDir": "./types",
+        "rootDir": ".",
         "baseUrl": ".",
         "moduleResolution": "node",
         "paths": {

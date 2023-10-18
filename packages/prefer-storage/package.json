@@ -1,18 +1,30 @@
 {
   "name": "prefer-storage",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "module": "dist/index.esm.js",
   "type": "module",
+  "types": "dist/src/core/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "rollup -c --watch --development",
-    "build": "rimraf dist types && rollup -c"
+    "build:package": "node build/build.js",
+    "build": "rimraf dist types && rollup -c",
+    "pub": "yarn build && node build/build.js && npm publish --registry=https://registry.npmjs.org/",
+    "postpublish": "node build/build_finish.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ethan66/open-tools-lib"
+  },
+  "keywords": ["localStorage", "sessionStorage", "IndexDB"],
+  "author": "Ethan66",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "rollup": "workspace:*",
     "rimraf": "workspace:*",
     "rollup-plugin-commonjs": "workspace:*",

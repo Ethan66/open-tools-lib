@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm -F prefer-storage dev",
-    "build": "pnpm -F prefer-storage build"
+    "build": "pnpm -F prefer-storage build",
+    "pub": "pnpm -F prefer-storage pub"
   },
   "private": true,
   "keywords": [],
