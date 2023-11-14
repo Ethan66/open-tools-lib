@@ -1,8 +1,8 @@
 import { type IProjectOption } from '@/types/index'
 
-export default class Project {
+export default class Project<T> {
   name: string
-  keys: string[]
+  keys: T[]
   expire: number
   idbVersion: number
   idbStoreOption: IDBObjectStoreParameters
@@ -14,7 +14,7 @@ export default class Project {
   idBeforeSet?: (val: { value: any, time: string, pathname: string }) => Promise<any>
   idAfterSet?: (res: any) => Promise<any>
   options: Recordable<string>
-  constructor (options: IProjectOption) {
+  constructor (options: IProjectOption<T>) {
     this.name = options.name
     this.keys = options.keys
     this.expire = options.expire ?? 0

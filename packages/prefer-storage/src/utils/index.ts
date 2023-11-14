@@ -38,7 +38,7 @@ IStrategyFn<any>
 }
 
 // 获取全路径key
-export const getNewKey = (name: string, key: string): string => {
+export const getNewKey = <T extends string>(name: string, key: T): string => {
   return `${name}__${key}`
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "prefer-storage",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "module": "dist/index.esm.js",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "rollup": "workspace:*",
     "rimraf": "workspace:*",
+    "rollup-plugin-terser": "workspace:*",
     "rollup-plugin-commonjs": "workspace:*",
     "rollup-plugin-delete": "workspace:*",
     "rollup-plugin-livereload": "workspace:*",

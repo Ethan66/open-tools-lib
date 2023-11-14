@@ -1,6 +1,6 @@
 export type IType = 'boolean' | 'object' | 'number' | 'any' | 'string' | 'map' | 'set' | 'date'
 
-export interface IProjectOption {
+export interface IProjectOption<T> {
   name: string
   expire?: number
   idbVersion?: number
@@ -12,7 +12,7 @@ export interface IProjectOption {
   idBeforeGet?: (val: { v: any, _isDue: boolean, _pathname: string }) => Promise<any> // 如：拿到数据发现过期进行逻辑操作，也可以对拿到的数据二次加工再返回
   idBeforeSet?: (val: { value: any, time: string, pathname: string }) => Promise<any> // 如：在存储前对数据进行处理后再存储
   idAfterSet?: (res: any) => Promise<any> // 如：存储结束后对数据进行上报服务器
-  keys: string[]
+  keys: T[]
   [key: string]: any
 }
 

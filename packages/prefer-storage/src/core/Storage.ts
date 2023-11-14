@@ -2,20 +2,20 @@ import Project from './Project'
 import { type IProjectOption, type IType } from '@/types'
 import { StorageStrategy, getFullPath, getNewKey, getValueType, isDue } from '@/utils'
 
-export default class PreferStorage extends Project {
+export default class PreferStorage<T extends string> extends Project<T> {
   storage: Storage
   storageName: string
-  constructor (storage: 'local' | 'session', projectData: IProjectOption) {
+  constructor (storage: 'local' | 'session', projectData: IProjectOption<T>) {
     super(projectData)
     this.storageName = storage
     this.storage = storage === 'local' ? window.localStorage : window.sessionStorage
   }
 
-  async get (key: string): Promise<any> {
+  async get (key: T): Promise<any> {
     return await new Promise((resolve, reject) => {
       const { storage, name } = this
       if (!this.keys.includes(key)) { reject(new Error(`当前${this.name}项目中${this.storageName + 'Storage'}不存在${key}的键，请确定参数是否正确`)); return }
-      const _key = getNewKey(name, key)
+      const _key = getNewKey<T>(name, key)
       const v = storage.getItem(_key)
       let _v
       let _time = ''
@@ -43,7 +43,7 @@ export default class PreferStorage extends Project {
     })
   }
 
-  async set (key: string, value: any): Promise<void> {
+  async set (key: T, value: any): Promise<void> {
     await new Promise((resolve, reject) => {
       const { name, storage } = this
       if (!this.keys.includes(key)) { reject(new Error(`当前${this.name}项目中${this.storageName + 'Storage'}不能添加${key}的键，请在initProject函数调用处添加白名单`)); return }
@@ -70,7 +70,7 @@ export default class PreferStorage extends Project {
     })
   }
 
-  async remove (key: string): Promise<void> {
+  async remove (key: T): Promise<void> {
     await new Promise((resolve, reject) => {
       if (!this.keys.includes(key)) { reject(new Error(`当前${this.name}项目中${this.storageName + 'Storage'}不存在${key}的键，请确定参数是否正确`)); return }
       const { name, storage } = this
@@ -96,7 +96,7 @@ export default class PreferStorage extends Project {
         const regex = new RegExp(`^${name}.*$`)
         const isMatch = regex.test(key)
         if (isMatch) {
-          void this.remove(key)
+          void this.remove(key as T)
         }
       })
       resolve(true)

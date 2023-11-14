@@ -4,6 +4,7 @@ import typescript from 'rollup-plugin-typescript2'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import del from 'rollup-plugin-delete'
+import { terser } from 'rollup-plugin-terser'
 
 const isDevelopment = process.argv.includes('--development')
 
@@ -28,7 +29,8 @@ export default {
   output: [{
     file: 'dist/index.js',
     format: 'umd',
-    name: 'PreStorage'
+    name: 'PreStorage',
+    plugins: [terser()]
   }, {
     file: 'dist/index.cm.js',
     format: 'cjs'

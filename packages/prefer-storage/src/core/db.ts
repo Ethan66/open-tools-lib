@@ -3,7 +3,7 @@ import { type IStoreParameter, TransactionMode, type IProjectOption } from '@/ty
 import Project from './Project'
 import { getFullPath, getIdbValue, isDue } from '@/utils'
 
-export class IndexedDB extends Project {
+export class IndexedDB<T extends string> extends Project<T> {
   private readonly objectStoreName: string
   private readonly storeOption?: IDBObjectStoreParameters
   private readonly createIndexs?: string[]
@@ -13,7 +13,7 @@ export class IndexedDB extends Project {
   private readyPromiseResolve!: () => void
   private readyPromiseReject!: (error: DOMException | null) => void
 
-  constructor (options: IStoreParameter, projectData: IProjectOption) {
+  constructor (options: IStoreParameter, projectData: IProjectOption<T>) {
     const { objectStoreName, storeOption, idCreateIndexs } = options
     super(projectData)
     this.objectStoreName = objectStoreName
@@ -104,7 +104,7 @@ export class IndexedDB extends Project {
     }
   }
 
-  async get (key: string): Promise<any> {
+  async get (key: T): Promise<any> {
     return await new Promise((resolve, reject) => {
       this.ready()
         .then(() => {
@@ -117,7 +117,7 @@ export class IndexedDB extends Project {
     })
   }
 
-  async set (key: string, val: any): Promise<void> {
+  async set (key: T, val: any): Promise<void> {
     await new Promise((resolve, reject) => {
       this.ready()
         .then(() => {
@@ -140,7 +140,7 @@ export class IndexedDB extends Project {
     })
   }
 
-  async remove (key: string): Promise<void> {
+  async remove (key: T): Promise<void> {
     await new Promise((resolve, reject) => {
       this.ready()
         .then(() => {
