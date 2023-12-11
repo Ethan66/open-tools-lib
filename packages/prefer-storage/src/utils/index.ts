@@ -61,3 +61,15 @@ export const isDue = (time: string, expire: number): boolean => {
 export const getFullPath = (): string => {
   return window.location.href.replace(/^https?:\/\/[^/]+(.*)$/, '$1')
 }
+
+// 对数据进行序列化
+export const handleGetJSONData = (type: string, value: any): string => {
+  const { writeIn } = StorageStrategy[type as IType]
+  let _value
+  try {
+    _value = writeIn(value)
+  } catch (e) {
+    _value = value
+  }
+  return _value
+}

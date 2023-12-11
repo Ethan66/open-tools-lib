@@ -1,6 +1,6 @@
 import Project from './Project'
 import { type IProjectOption, type IType } from '@/types'
-import { StorageStrategy, getFullPath, getNewKey, getValueType, isDue } from '@/utils'
+import { StorageStrategy, getFullPath, getNewKey, isDue, handleGetJSONData, getValueType } from '@/utils'
 
 export default class PreferStorage<T extends string> extends Project<T> {
   storage: Storage
@@ -50,16 +50,14 @@ export default class PreferStorage<T extends string> extends Project<T> {
       const _key = getNewKey(name, key)
       const type = getValueType(value)
       if (type === 'null') reject(new Error('当前要存储的值为null'))
-      const { writeIn } = StorageStrategy[type as IType]
-      let _value
-      try {
-        _value = writeIn(value)
-      } catch (e) {
-        _value = value
-      }
+      const _value = handleGetJSONData(type, value)
       const result = { type, time: new Date().toLocaleString(), pathname: getFullPath(), value: _value }
       if (this.beforeSet) {
-        this.beforeSet(result).then(res => {
+        this.beforeSet({ ...result, value }).then(res => {
+          const type = getValueType(res.value)
+          if (type === 'null') reject(new Error('当前要存储的值为null'))
+          res.type = type
+          res.value = handleGetJSONData(type, res.value)
           storage.setItem(_key, JSON.stringify(res))
           this.setOrRemoveSuccess(resolve, res)
         }).catch(e => { reject(e) })
