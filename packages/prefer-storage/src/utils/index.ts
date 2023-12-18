@@ -11,6 +11,10 @@ IStrategyFn<any>
     read: (v: string) => JSON.parse(v),
     writeIn: (v: any) => JSON.stringify(v)
   },
+  array: {
+    read: (v: string) => JSON.parse(v),
+    writeIn: (v: any) => JSON.stringify(v)
+  },
   number: {
     read: (v: string) => +v,
     writeIn: (v: any) => String(v)
@@ -63,8 +67,9 @@ export const getFullPath = (): string => {
 }
 
 // 对数据进行序列化
-export const handleGetJSONData = (type: string, value: any): string => {
-  const { writeIn } = StorageStrategy[type as IType]
+export const handleGetJSONData = (type: string, value: any, reject: (reason?: any) => void): string => {
+  const { writeIn } = StorageStrategy[type as IType] || {}
+  if (!writeIn) reject(new Error(`当前存储的数据类型是${type}, 没有匹配到`))
   let _value
   try {
     _value = writeIn(value)

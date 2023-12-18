@@ -50,14 +50,14 @@ export default class PreferStorage<T extends string> extends Project<T> {
       const _key = getNewKey(name, key)
       const type = getValueType(value)
       if (type === 'null') reject(new Error('当前要存储的值为null'))
-      const _value = handleGetJSONData(type, value)
+      const _value = handleGetJSONData(type, value, reject)
       const result = { type, time: new Date().toLocaleString(), pathname: getFullPath(), value: _value }
       if (this.beforeSet) {
         this.beforeSet({ ...result, value }).then(res => {
           const type = getValueType(res.value)
           if (type === 'null') reject(new Error('当前要存储的值为null'))
           res.type = type
-          res.value = handleGetJSONData(type, res.value)
+          res.value = handleGetJSONData(type, res.value, reject)
           storage.setItem(_key, JSON.stringify(res))
           this.setOrRemoveSuccess(resolve, res)
         }).catch(e => { reject(e) })

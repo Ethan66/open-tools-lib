@@ -1,4 +1,4 @@
-export type IType = 'boolean' | 'object' | 'number' | 'any' | 'string' | 'map' | 'set' | 'date'
+export type IType = 'boolean' | 'object' | 'array' | 'number' | 'any' | 'string' | 'map' | 'set' | 'date'
 
 export interface IProjectOption<T> {
   name: string
