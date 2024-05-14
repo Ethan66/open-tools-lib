@@ -40,6 +40,9 @@ export default class PreferStorage<T extends string> extends Project<T> {
       } else {
         resolve(result)
       }
+      if (this.afterGet) {
+        void this.afterGet(key)
+      }
     })
   }
 
@@ -53,7 +56,7 @@ export default class PreferStorage<T extends string> extends Project<T> {
       const _value = handleGetJSONData(type, value, reject)
       const result = { type, time: new Date().toLocaleString(), pathname: getFullPath(), value: _value }
       if (this.beforeSet) {
-        this.beforeSet({ ...result, value }).then(res => {
+        this.beforeSet({ ...result, key, value }).then(res => {
           const type = getValueType(res.value)
           if (type === 'null') reject(new Error('当前要存储的值为null'))
           res.type = type

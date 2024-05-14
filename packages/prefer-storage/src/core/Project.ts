@@ -8,7 +8,8 @@ export default class Project<T> {
   idbStoreOption: IDBObjectStoreParameters
   idCreateIndexs: string[]
   beforeGet?: (val: { v: any, _isDue: boolean, _key: string, _pathname: string }) => Promise<any>
-  beforeSet?: (val: { value: any, type: string, time: string, pathname: string }) => Promise<any>
+  afterGet?: (key: string) => Promise<any>
+  beforeSet?: (val: { value: any, type: string, time: string, key: string, pathname: string }) => Promise<any>
   afterSet?: (res: any) => Promise<any>
   idBeforeGet?: (val: { v: any, _isDue: boolean, _pathname: string }) => Promise<any>
   idBeforeSet?: (val: { value: any, time: string, pathname: string }) => Promise<any>
@@ -22,6 +23,7 @@ export default class Project<T> {
     this.idbStoreOption = options.idbStoreOption ?? { keyPath: '_key' }
     this.idCreateIndexs = options.idCreateIndexs ?? ['pathname']
     this.beforeGet = options.beforeGet
+    this.afterGet = options.afterGet
     this.beforeSet = options.beforeSet
     this.afterSet = options.afterSet
     this.idBeforeGet = options.idBeforeGet
@@ -33,6 +35,7 @@ export default class Project<T> {
     delete data.expire
     delete data.idbVersion
     delete data.beforeGet
+    delete data.afterGet
     delete data.beforeSet
     delete data.afterSet
     delete data.idBeforeGet

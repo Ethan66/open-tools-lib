@@ -14,6 +14,10 @@ const projectData = {
       }
     })
   },
+  afterGet: async function (key: string) {
+    // if (key.includes('a')) { void localStore.remove(key as typeof localStore.keys[number]) }
+    console.warn('----- my data is ley: ', key)
+  },
   beforeSet: async (val: { value: any, type: string, time: string, pathname: string }) => {
     return await new Promise((resolve) => {
       console.warn('----- my data is 00000000', 'beforeSet', val)

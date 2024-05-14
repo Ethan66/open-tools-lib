@@ -32,7 +32,7 @@ const projectConfig = {
       else { resolve(res.v) }
     })
   },
-  beforeSet?: async (val: { value: any, type: string, time: string, pathname: string }) => {
+  beforeSet?: async (val: { value: any, type: string, time: string, pathname: string, key: string }) => {
     return await new Promise((resolve) => {
       const newVal = { ...val, aa: Math.random() }
       resolve(newVal)
